@@ -87,14 +87,15 @@ const Index = () => {
       {/* Raining Hearts Effect */}
       {isRaining && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-30">
-          {[...Array(50)].map((_, i) => (
+          {[...Array(80)].map((_, i) => (
             <div
               key={i}
               className="heart-rain absolute text-red-500"
               style={{
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                fontSize: `${Math.random() * 20 + 15}px`,
+                animationDelay: `${Math.random() * 3}s`,
+                fontSize: `${Math.random() * 40 + 30}px`,
+                animationDuration: `${Math.random() * 2 + 4}s`,
               }}
             >
               ♥
