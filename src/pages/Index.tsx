@@ -1,6 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
 
 const Index = () => {
+  const [clickCount, setClickCount] = useState(0);
+  const [buttonPosition, setButtonPosition] = useState({ x: 50, y: 50 });
+  const [isRaining, setIsRaining] = useState(false);
+
+  const handleHeartClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+    
+    // Generate random position for the button
+    const newX = Math.random() * 80 + 10; // 10% to 90% of screen width
+    const newY = Math.random() * 80 + 10; // 10% to 90% of screen height
+    setButtonPosition({ x: newX, y: newY });
+    
+    // After 5 clicks, start raining hearts
+    if (newCount >= 5) {
+      setIsRaining(true);
+      // Reset after animation
+      setTimeout(() => {
+        setIsRaining(false);
+        setClickCount(0);
+      }, 5000);
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-cover bg-center bg-no-repeat" style={{backgroundImage: 'url("https://i.ibb.co/HLG6F8xt/images-1.jpg")'}}>
 
@@ -37,6 +60,45 @@ const Index = () => {
           <div className="animate-pulse text-yellow-300 text-xl" style={{animationDelay: '1s'}}>✨</div>
         </div>
       </div>
+
+      {/* Heart-shaped Button */}
+      <button
+        onClick={handleHeartClick}
+        className="heart-button absolute z-20 text-4xl transition-all duration-300 hover:scale-110 cursor-pointer"
+        style={{
+          left: `${buttonPosition.x}%`,
+          top: `${buttonPosition.y}%`,
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        ♥
+      </button>
+
+      {/* Click Counter */}
+      <div className="absolute top-4 right-4 z-20 bg-black/20 backdrop-blur-sm rounded-lg px-4 py-2">
+        <span className="text-white font-semibold">
+          Clicks: {clickCount}/5
+        </span>
+      </div>
+
+      {/* Raining Hearts Effect */}
+      {isRaining && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-30">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="heart-rain absolute text-red-500"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+                fontSize: `${Math.random() * 20 + 15}px`,
+              }}
+            >
+              ♥
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Bottom decorative hearts */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 text-primary/40">
