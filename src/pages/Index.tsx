@@ -8,9 +8,9 @@ const Index = () => {
 
   useEffect(() => {
     // Auto-play background music
-    const audio = new Audio("https://www.soundjay.com/misc/sounds/heart-beat-01.wav");
+    const audio = new Audio("https://music.apple.com/us/song/love-me/1440616477");
     audio.loop = true;
-    audio.volume = 0.3;
+    audio.volume = 0.8;
     
     // Play music when component mounts
     const playMusic = () => {
@@ -102,7 +102,10 @@ const Index = () => {
         {/* Romantic Message */}
         <div className="max-w-4xl mx-auto">
           <h1 className="romantic-text text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 text-white">
-            I LOVE YOU AYO MY NIGERIAN BESTIE
+            I LOVE YOU SO MUCH MY CUTE WIFEY
+          </h1>
+                    <h1 className="romantic-text text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 text-white">
+           IF YOU LOVE THIS SEND ME KISSES OF HOW MUCH YOU LUV IT
           </h1>
         </div>
 
