@@ -1,9 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Index = () => {
   const [clickCount, setClickCount] = useState(0);
   const [buttonPosition, setButtonPosition] = useState({ x: 50, y: 50 });
   const [isRaining, setIsRaining] = useState(false);
+  const [ripples, setRipples] = useState([]);
+
+  useEffect(() => {
+    // Auto-play background music
+    const audio = new Audio("https://www.soundjay.com/misc/sounds/heart-beat-01.wav");
+    audio.loop = true;
+    audio.volume = 0.3;
+    
+    // Play music when component mounts
+    const playMusic = () => {
+      audio.play().catch(e => console.log("Audio play failed:", e));
+    };
+    
+    // Try to play immediately, but also on first user interaction
+    playMusic();
+    document.addEventListener('click', playMusic, { once: true });
+    
+    return () => {
+      audio.pause();
+      document.removeEventListener('click', playMusic);
+    };
+  }, []);
+
+  const handleMainHeartClick = () => {
+    // Create ripple effect
+    const newRipple = {
+      id: Date.now(),
+      x: 50, // Center of main heart
+      y: 50
+    };
+    setRipples(prev => [...prev, newRipple]);
+    
+    // Remove ripple after animation
+    setTimeout(() => {
+      setRipples(prev => prev.filter(r => r.id !== newRipple.id));
+    }, 1000);
+  };
 
   const handleHeartClick = () => {
     const newCount = clickCount + 1;
@@ -40,10 +77,26 @@ const Index = () => {
       {/* Main Content */}
       <div className="text-center z-10">
         {/* Beating Heart */}
-        <div className="mb-8 md:mb-12">
-          <div className="heart-beat text-8xl md:text-9xl lg:text-[12rem] text-primary drop-shadow-lg">
+        <div className="mb-8 md:mb-12 relative">
+          <div 
+            className="heart-beat text-[16rem] md:text-[18rem] lg:text-[24rem] text-primary drop-shadow-lg cursor-pointer relative z-10"
+            onClick={handleMainHeartClick}
+          >
             ♥
           </div>
+          
+          {/* Heart Ripples */}
+          {ripples.map(ripple => (
+            <div
+              key={ripple.id}
+              className="heart-ripple absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              style={{
+                fontSize: '16rem',
+              }}
+            >
+              ♥
+            </div>
+          ))}
         </div>
 
         {/* Romantic Message */}

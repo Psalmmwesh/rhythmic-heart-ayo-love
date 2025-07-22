@@ -184,6 +184,21 @@ All colors MUST be HSL.
       opacity: 0;
     }
   }
+
+  /* Heart Ripple Animation */
+  @keyframes heartRipple {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(3);
+      opacity: 0;
+    }
+  }
   
   .float {
     animation: float 3s ease-in-out infinite;
@@ -191,6 +206,11 @@ All colors MUST be HSL.
 
   .heart-rain {
     animation: rainFall 3s linear infinite;
+  }
+
+  .heart-ripple {
+    animation: heartRipple 1s ease-out forwards;
+    color: hsl(var(--primary) / 0.6);
   }
 
   .heart-button {
