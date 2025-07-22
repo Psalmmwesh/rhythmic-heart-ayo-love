@@ -64,11 +64,14 @@ const Index = () => {
       {/* Heart-shaped Button */}
       <button
         onClick={handleHeartClick}
-        className="heart-button absolute z-20 text-4xl transition-all duration-300 hover:scale-110 cursor-pointer"
+        className="heart-button absolute z-20 transition-all duration-300 hover:scale-110 cursor-pointer"
         style={{
           left: `${buttonPosition.x}%`,
           top: `${buttonPosition.y}%`,
           transform: 'translate(-50%, -50%)',
+          fontSize: `${3 + clickCount * 0.5}rem`,
+          filter: `brightness(${1 + clickCount * 0.3}) drop-shadow(0 0 ${8 + clickCount * 4}px hsl(var(--primary) / ${0.3 + clickCount * 0.1}))`,
+          textShadow: `0 0 ${10 + clickCount * 5}px hsl(var(--primary) / ${0.5 + clickCount * 0.1})`,
         }}
       >
         ♥
